@@ -68,15 +68,14 @@
       zed-editor
       warp-terminal
       obsidian
-      eza
       tailscale
       syncthing      
     ];
   };
 
   # Enable automatic login for the user.
-  services.displayManager.autoLogin.enable = true;
-  services.displayManager.autoLogin.user = "gavin";
+  # services.displayManager.autoLogin.enable = true;
+  # services.displayManager.autoLogin.user = "gavin";
 
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
   systemd.services."getty@tty1".enable = false;
@@ -91,8 +90,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
+    vim
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
