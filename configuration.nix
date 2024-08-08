@@ -101,6 +101,7 @@
     wlroots
     nixpkgs-fmt
     kitty
+    telegram-desktop
   ];
 
   fonts.packages = with pkgs; [
