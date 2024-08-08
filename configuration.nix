@@ -81,10 +81,16 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim
+    eww
     hyprland
+    waybar
+    libnotify
+    wezterm
+    alacritty
+    rofi-wayland
     swww # for wallpapers
     #xdg-desktop-portal-gtk
-    #xdg-desktop-portal-hyprland
+    xdg-desktop-portal-hyprland
     xwayland
     meson
     wayland-protocols
@@ -93,6 +99,21 @@
     wlroots
     nixpkgs-fmt
     kitty
+  ];
+
+  fonts.packages = with pkgs; [
+    font-awesome
+    powerline-fonts
+    powerline-symbols
+    noto-fonts
+    noto-fonts-cjk
+    noto-fonts-emoji
+    liberation_ttf
+    fira-code
+    fira-code-symbols
+    mplus-outline-fonts.githubRelease
+    dina-font
+    proggyfonts
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
