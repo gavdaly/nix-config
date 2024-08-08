@@ -34,6 +34,10 @@
     icons = true;
   };
 
+  programs.starship = {
+    enable = true;
+  };
+
   # Need to setup profile to enable
   programs.thunderbird = {
     #   enable = true;
