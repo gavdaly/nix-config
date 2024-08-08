@@ -34,9 +34,9 @@
     icons = true;
   };
 
-# Need to setup profile to enable
+  # Need to setup profile to enable
   programs.thunderbird = {
- #   enable = true;
+    #   enable = true;
   };
 
   services.gpg-agent = {

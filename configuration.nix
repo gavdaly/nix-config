@@ -2,7 +2,8 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
 
@@ -23,6 +24,21 @@
 
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
+
+
+  services.displayManager.sddm.enable = true;
+  services.displayManager.defaultSession = "hyprland";
+  services.displayManager.sddm.wayland.enable = true;
+
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+  };
+
+  # Hint Electon apps to use wayland
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+  };
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -64,7 +80,7 @@
       warp-terminal
       obsidian
       tailscale
-      syncthing      
+      syncthing
     ];
   };
 
@@ -77,6 +93,17 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim
+    hyprland
+    swww # for wallpapers
+    #xdg-desktop-portal-gtk
+    #xdg-desktop-portal-hyprland
+    xwayland
+    meson
+    wayland-protocols
+    wayland-utils
+    wl-clipboard
+    wlroots
+    nixpkgs-fmt
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
