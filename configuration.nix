@@ -40,15 +40,6 @@
     NIXOS_OZONE_WL = "1";
   };
 
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -64,9 +55,6 @@
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
 
   services.tailscale.enable = true;
 
@@ -104,6 +92,7 @@
     wl-clipboard
     wlroots
     nixpkgs-fmt
+    kitty
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
