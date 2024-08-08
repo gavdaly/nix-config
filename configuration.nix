@@ -88,6 +88,7 @@
     wezterm
     alacritty
     rofi-wayland
+    starship
     swww # for wallpapers
     #xdg-desktop-portal-gtk
     xdg-desktop-portal-hyprland
