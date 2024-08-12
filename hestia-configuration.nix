@@ -3,7 +3,7 @@
 {
   imports =
     [
-      ./hestia-configuration.nix
+      ./hestia-hardware.nix
     ];
 
   boot.loader.systemd-boot.enable = true;
@@ -49,6 +49,7 @@
 
   # List services that you want to enable:
 
+  services.tailscale.enable = true;
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
