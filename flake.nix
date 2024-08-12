@@ -25,6 +25,11 @@
           }
         ];
       };
+      hestia = nixpkgs.lib.nixosSystem {
+        modules = [
+          ./hestia-configuration.nix
+        ];
+      };
     };
   };
 }
