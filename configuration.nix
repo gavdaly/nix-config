@@ -64,11 +64,17 @@
     description = "gavin";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
+      cosmic-files
+      cosmic-launcher
+      onagre
+      wayvnc
+      mpv
       zed-editor
       warp-terminal
       obsidian
       tailscale
       syncthing
+      jetbrains.rust-rover
     ];
     openssh.authorizedKeys.keys = [
       "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBCosaz3SJJU/l4RBJ/bXohaWToOih8xSvcfPbaqZkeg+N3pSfzSXgBQyyUPuxb01ZIskYlHH39XEki8or+3zTp8= ipad Key"

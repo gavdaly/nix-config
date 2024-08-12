@@ -23,6 +23,7 @@
     description = "gavin";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [];
+
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -32,6 +33,7 @@
   environment.systemPackages = with pkgs; [
     vim
     git
+    tailscale
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
