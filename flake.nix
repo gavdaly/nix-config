@@ -1,5 +1,5 @@
 {
-  description = "First Base Config";
+  description = "First Base Config with Kubernetes k3s Cluster Support";
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-24.05";
@@ -8,27 +8,66 @@
   };
 
   outputs = inputs@{ nixpkgs, home-manager, ... }: {
-    nixosConfigurations = {
-      zeus = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+    let
+      # Define a mapping of architectures to NixOS system identifiers
+      architectures = {
+        aarch64 = "aarch64-linux";
+        x86_64 = "x86_64-linux";
+        armv7l = "armv7l-linux";  # Example for 32-bit ARM
+        # Add more architectures as needed
+      };
 
+      # Function to generate system configuration for a given architecture and role
+      makeSystem = arch: role: pkgs.lib.nixosSystem {
+        system = architectures.${arch};
         modules = [
-          ./configuration.nix
-          home-manager.nixosModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.gavin = import ./home.nix;
+            imports = [ ./rpi-${role}.nix ];
 
-            # Optionally, use home-manager.extraSpecialArgs to pass
-            # arguments to home.nix
+            # Set the hostname using the architecture and role
+            networking.hostName = "k3s-${arch}-${role}";
+
+            # Other system-specific or role-specific configurations
           }
         ];
       };
-      hestia = nixpkgs.lib.nixosSystem {
-        modules = [
-          ./hestia-configuration.nix
-        ];
+
+    in {
+      nixosConfigurations = {
+        # Existing systems
+        zeus = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+
+          modules = [
+            ./configuration.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.gavin = import ./home.nix;
+
+              # Optionally, use home-manager.extraSpecialArgs to pass
+              # arguments to home.nix
+            }
+          ];
+        };
+
+        hestia = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";  # Add the system architecture for Hestia
+          modules = [
+            ./hestia-configuration.nix
+          ];
+        };
+
+        # New k3s nodes
+        rpi-master = makeSystem "aarch64" "master";
+        rpi-worker01 = makeSystem "aarch64" "worker01";
+        rpi-worker02 = makeSystem "aarch64" "worker02";
+        rpi-worker03 = makeSystem "aarch64" "worker03";
+
+        # Add additional architectures and roles as needed
+        # rpi-armv7l-master = makeSystem "armv7l" "master";
+        # rpi-armv7l-worker01 = makeSystem "armv7l" "worker01";
       };
     };
   };
