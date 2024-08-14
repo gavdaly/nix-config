@@ -1,7 +1,3 @@
-Here’s the README with the updated TODO section:
-
----
-
 # Nix Configurations
 
 This repository contains Nix configurations for managing development environments on two main systems: Zeus and Hestia. These configurations are designed to be reproducible and portable, leveraging Nix Flakes to ensure consistency across setups.
