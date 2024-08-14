@@ -1,5 +1,5 @@
 {
-  description = "First Base Config with Kubernetes k3s Cluster Support";
+  description = "First Base Config with Kubernetes k3s Cluster Support and MacBook Pro (Athena)";
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-24.05";
@@ -59,7 +59,24 @@
           ];
         };
 
-        # New k3s nodes
+        # MacBook Pro (Athena) configuration
+        athena = nixpkgs.lib.nixosSystem {
+          system = "aarch64-darwin";  # MacBook Pro with M2 uses aarch64 architecture on macOS
+
+          modules = [
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.gavin = import ./athena-home.nix;
+
+              # Optionally, use home-manager.extraSpecialArgs to pass
+              # arguments to athena-home.nix
+            }
+          ];
+        };
+
+        # k3s nodes for Raspberry Pi at the bottom
         rpi-master = makeSystem "aarch64" "master";
         rpi-worker01 = makeSystem "aarch64" "worker01";
         rpi-worker02 = makeSystem "aarch64" "worker02";
