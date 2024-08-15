@@ -105,7 +105,10 @@
     jq
     curl
     wget
-    gh  # GitHub CLI
+    gh
+    ytop
+    bat
+    yt-dlp
   ];
 
   # Set up neovim as your editor
