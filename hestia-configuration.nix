@@ -3,7 +3,7 @@
 {
   imports =
     [
-      ./hestia-hardware.nix
+      ./hardware/hestia.nix
     ];
 
   boot.loader.systemd-boot.enable = true;
