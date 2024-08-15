@@ -49,6 +49,7 @@
     tailscale
     syncthing
     jetbrains.rust-rover
+    vscode
   ];
 
   environment.systemPackages = with pkgs; [
