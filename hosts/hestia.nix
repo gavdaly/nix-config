@@ -17,7 +17,6 @@
     vim
     git
     tailscale
-    surrealdb
     postgresql_16_jit
     rustdesk-server
   ];
