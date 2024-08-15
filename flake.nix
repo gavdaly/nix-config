@@ -37,7 +37,7 @@
         system = "x86_64-linux";
 
         modules = [
-          ./configuration.nix
+          ./hosts/zeus.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -53,7 +53,7 @@
       hestia = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";  # Add the system architecture for Hestia
         modules = [
-          ./hestia-configuration.nix
+          ./hosts/hestia.nix
         ];
       };
 
@@ -66,7 +66,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.gavin = import ./athena-home.nix;
+            home-manager.users.gavin = import ./hosts/athena.nix;
 
             # Optionally, use home-manager.extraSpecialArgs to pass
             # arguments to athena-home.nix
