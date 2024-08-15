@@ -7,85 +7,82 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, ... }: {
-    let
-      # Define a mapping of architectures to NixOS system identifiers
-      architectures = {
-        aarch64 = "aarch64-linux";
-        x86_64 = "x86_64-linux";
-        armv7l = "armv7l-linux";  # Example for 32-bit ARM
-        # Add more architectures as needed
-      };
+  outputs = inputs@{ nixpkgs, home-manager, ... }: let
+    # Define a mapping of architectures to NixOS system identifiers
+    architectures = {
+      aarch64 = "aarch64-linux";
+      x86_64 = "x86_64-linux";
+      armv7l = "armv7l-linux";  # Example for 32-bit ARM
+      # Add more architectures as needed
+    };
 
-      # Function to generate system configuration for a given architecture and role
-      makeSystem = arch: role: pkgs.lib.nixosSystem {
-        system = architectures.${arch};
+    # Function to generate system configuration for a given architecture and role
+    makeSystem = arch: role: nixpkgs.lib.nixosSystem {
+      system = architectures.${arch};
+      modules = [
+        {
+          imports = [ ./rpi-${role}.nix ];
+
+          # Set the hostname using the architecture and role
+          networking.hostName = "k3s-${arch}-${role}";
+
+          # Other system-specific or role-specific configurations
+        }
+      ];
+    };
+  in {
+    nixosConfigurations = {
+      # Existing systems
+      zeus = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+
         modules = [
+          ./configuration.nix
+          home-manager.nixosModules.home-manager
           {
-            imports = [ ./rpi-${role}.nix ];
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.gavin = import ./home.nix;
 
-            # Set the hostname using the architecture and role
-            networking.hostName = "k3s-${arch}-${role}";
-
-            # Other system-specific or role-specific configurations
+            # Optionally, use home-manager.extraSpecialArgs to pass
+            # arguments to home.nix
           }
         ];
       };
 
-    in {
-      nixosConfigurations = {
-        # Existing systems
-        zeus = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-
-          modules = [
-            ./configuration.nix
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.gavin = import ./home.nix;
-
-              # Optionally, use home-manager.extraSpecialArgs to pass
-              # arguments to home.nix
-            }
-          ];
-        };
-
-        hestia = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";  # Add the system architecture for Hestia
-          modules = [
-            ./hestia-configuration.nix
-          ];
-        };
-
-        # MacBook Pro (Athena) configuration
-        athena = nixpkgs.lib.nixosSystem {
-          system = "aarch64-darwin";  # MacBook Pro with M2 uses aarch64 architecture on macOS
-
-          modules = [
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.gavin = import ./athena-home.nix;
-
-              # Optionally, use home-manager.extraSpecialArgs to pass
-              # arguments to athena-home.nix
-            }
-          ];
-        };
-
-        # k3s nodes for Raspberry Pi at the bottom
-        rpi-master = makeSystem "aarch64" "master";
-        rpi-worker01 = makeSystem "aarch64" "worker01";
-        rpi-worker02 = makeSystem "aarch64" "worker02";
-        rpi-worker03 = makeSystem "aarch64" "worker03";
-
-        # Add additional architectures and roles as needed
-        # rpi-armv7l-master = makeSystem "armv7l" "master";
-        # rpi-armv7l-worker01 = makeSystem "armv7l" "worker01";
+      hestia = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";  # Add the system architecture for Hestia
+        modules = [
+          ./hestia-configuration.nix
+        ];
       };
+
+      # MacBook Pro (Athena) configuration
+      athena = nixpkgs.lib.nixosSystem {
+        system = "aarch64-darwin";  # MacBook Pro with M2 uses aarch64 architecture on macOS
+
+        modules = [
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.gavin = import ./athena-home.nix;
+
+            # Optionally, use home-manager.extraSpecialArgs to pass
+            # arguments to athena-home.nix
+          }
+        ];
+      };
+
+      # k3s nodes for Raspberry Pi at the bottom
+      rpi-master = makeSystem "aarch64" "master";
+      rpi-worker01 = makeSystem "aarch64" "worker01";
+      rpi-worker02 = makeSystem "aarch64" "worker02";
+      rpi-worker03 = makeSystem "aarch64" "worker03";
+
+      # Add additional architectures and roles as needed
+      # rpi-armv7l-master = makeSystem "armv7l" "master";
+      # rpi-armv7l-worker01 = makeSystem "armv7l" "worker01";
     };
   };
 }
