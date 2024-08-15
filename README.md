@@ -46,7 +46,6 @@ This repository contains Nix configurations for managing development environment
 
 ## TODO
 
-- **Modules Directory**: Add a `modules` directory for shared modules across different machines.
 - **Overlays Directory**: Implement an `overlays` directory to manage custom Nix overlays for package modifications or extensions.
 - **Move Other Server Over**: Migrate the remaining server to use the configurations in this repository.
 
