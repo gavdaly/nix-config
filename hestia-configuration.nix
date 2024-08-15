@@ -37,6 +37,9 @@
     vim
     git
     tailscale
+    surrealdb
+    postgresql_16_jit
+    rustdesk-server
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
