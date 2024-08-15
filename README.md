@@ -89,7 +89,3 @@ Ensure Nix and Flakes support are enabled on your system. Follow the [Nix instal
 ## Contributing
 
 If you have suggestions or improvements, feel free to open an issue or submit a pull request. Contributions are welcome!
-
----
-
-The README now reflects the creation of the `hosts` directory and removes it from the TODO list.
