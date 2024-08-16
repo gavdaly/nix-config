@@ -54,42 +54,26 @@
   };
 
   # Adding a custom alias for `eza` with `-la` flags
-  programs.zsh = {
-    enable = true;
-    aliases = {
-      l = "eza -la --color=always --icons --git";
-    };
+  programs.zsh.aliases = {
+    l = "eza -la --color=always --icons --git";
   };
 
   # Recommended additional programs
   programs.bat.enable = true;
   programs.ripgrep.enable = true;
-  programs.htop.enable = true;
+  programs.ytop.enable = true;
   programs.fd.enable = true;
-  programs.tldr.enable = true;
+  programs.tealdeer.enable = true;
   programs.delta.enable = true;
 
   # Installing and configuring `zellij`
   programs.zellij.enable = true;
 
   # Installing and configuring `devenv`
-  programs.devenv = {
-    enable = true;
-  };
+  programs.devenv.enable = true;
 
   # Installing `zoxide`
   programs.zoxide.enable = true;
-
-  # Installing `fzf`
-  programs.fzf = {
-    enable = true;
-    enableZshIntegration = true;  # Enable fzf integration with zsh
-    keybindings = {
-      "ctrl-r" = "history search";
-      "alt-c" = "cd to directory";
-      "ctrl-t" = "open file";
-    };
-  };
 
   # Installing and configuring nix-direnv
   programs.direnv = {
@@ -102,10 +86,13 @@
 
   # Installing command-line utilities including GitHub CLI
   home.packages = with pkgs; [
+    nixpkgs-fmt
     jq
     curl
     wget
-    gh  # GitHub CLI
+    gh
+    ytop
+    bat
   ];
 
   # Set up neovim as your editor
