@@ -5,7 +5,9 @@
   imports =
     [
       ./hardware/hestia.nix
-      ../modules/common.nix  # Import common settings from the modules directory
+      ../modules/common.nix
+      ../modules/terminal.nix
+      ../modules/nix-gc.nix
     ];
 
   # Host-specific settings for Hestia
