@@ -2,9 +2,10 @@
 
 let
   # Detect the system architecture dynamically
-  architecture = if pkgs.stdenv.isAarch64 then "aarch64"
-                 else if pkgs.stdenv.isX86_64 then "x86_64"
-                 else "unknown";
+  architecture =
+    if pkgs.stdenv.isAarch64 then "aarch64"
+    else if pkgs.stdenv.isX86_64 then "x86_64"
+    else "unknown";
 in
 {
   # Define the hostname including the architecture
@@ -21,7 +22,7 @@ in
   services.k3s.agent = {
     enable = true;
     extraArgs = "--node-name=${config.networking.hostName}";
-    server = "https://k3s-aarch64-master:6443";  # Adjust if master is on a different architecture
+    server = "https://k3s-aarch64-master:6443"; # Adjust if master is on a different architecture
     tokenFile = "/var/lib/rancher/k3s/server/node-token"; # Ensure this token is distributed from the master
   };
 
@@ -29,7 +30,7 @@ in
   networking.firewall.enable = true;
 
   nixpkgs.system = architecture + "-linux";
-  boot.loader.grub.device = "/dev/sdX";  # Adjust to your setup
+  boot.loader.grub.device = "/dev/sdX"; # Adjust to your setup
 
   time.timeZone = "UTC";
   i18n.defaultLocale = "en_US.UTF-8";

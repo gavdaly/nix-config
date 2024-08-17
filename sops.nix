@@ -1,5 +1,3 @@
-
-
 {
   description = "NixOS configuration with configurable hostname and system";
 
