@@ -42,7 +42,7 @@
           system = "x86_64-linux";
 
           modules = [
-            ./configuration.nix
+            ./hosts/zeus.nix
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
@@ -58,7 +58,7 @@
         hestia = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux"; # Add the system architecture for Hestia
           modules = [
-            ./hestia-configuration.nix
+            ./hosts/hestia.nix
           ];
         };
 
