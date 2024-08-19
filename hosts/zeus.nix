@@ -5,7 +5,13 @@
   imports =
     [
       ./hardware/zeus.nix
+      ../modules/bluetooth.nix
       ../modules/common.nix
+      ../modules/nix-gc.nix
+      ../modules/sound.nix
+      ../modules/terminal.nix
+      ../modules/virtualization.nix
+      ../modules/wasm.nix
     ];
 
   # Host-specific settings for Zeus
