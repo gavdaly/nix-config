@@ -10,7 +10,7 @@
       ../modules/nix-gc.nix
       ../modules/sound.nix
       ../modules/terminal.nix
-      ../modules/virtualization.nix
+      ../modules/virtualisation.nix
       ../modules/wasm.nix
     ];
 
