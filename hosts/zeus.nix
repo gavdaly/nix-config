@@ -1,5 +1,5 @@
 # hosts/zeus.nix
-{ config, pkgs, ... }:
+{ config, pkgs, unstable, ... }:
 
 {
   imports =

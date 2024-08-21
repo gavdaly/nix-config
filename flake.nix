@@ -11,7 +11,7 @@
     nixpkgs-fmt.url = "github:nix-community/nixpkgs-fmt";
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, nixpkgs-fmt, ... }:
+  outputs = inputs@{ nixpkgs, home-manager, unstable, nixpkgs-fmt, ... }:
     let
       # Define a mapping of architectures to NixOS system identifiers
       architectures = {
@@ -54,6 +54,7 @@
               # arguments to home.nix
             }
           ];
+          specialArgs = { inherit unstable; };
         };
 
         hestia = nixpkgs.lib.nixosSystem {
