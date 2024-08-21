@@ -95,5 +95,8 @@
           nixpkgs-fmt
         ];
       };
+
+      # Add a defaultPackage attribute that does nothing
+      defaultPackage.x86_64-linux = null;
     };
 }
