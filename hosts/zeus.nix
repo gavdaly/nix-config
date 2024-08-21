@@ -33,8 +33,6 @@
     NIXOS_OZONE_WL = "1";
   };
 
-  services.syncthing.enable = true;
-  services.tailscale.enable = true;
   # Packages specific to Zeus
   users.users.gavin.packages = with pkgs; [
     cosmic-files
@@ -45,9 +43,6 @@
     zed-editor
     warp-terminal
     obsidian
-    tailscale
-    syncthing
-    jetbrains.rust-rover
     vscode
   ];
 
