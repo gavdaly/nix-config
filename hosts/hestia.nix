@@ -15,10 +15,6 @@
   networking.hostName = "hestia";
   services.tailscale.enable = true;
 
-  services.postgresql_16_jit = {
-    enable = true;
-  };
-
   services.rustdesk-server = {
     enable = true;
     openFirewall = true;
