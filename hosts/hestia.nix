@@ -14,6 +14,11 @@
   networking.hostName = "hestia";
   services.tailscale.enable = true;
 
+  services.rustdesk-server = {
+    enable = true;
+    openFirewall = true;
+  };
+
   # Packages specific to Hestia
   environment.systemPackages = with pkgs; [
     vim
