@@ -1,7 +1,19 @@
 { pkgs, ... }:
 
-# TODO: Sort through these and remove the ones that are not needed
 {
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    loginShell = true;
+    shellAliases = {
+      update = "nix flake update";
+      upgrade = "sudo nixos-rebuild switch --flake .";
+    };
+    interactiveShellInit = ''
+      eval "$(zoxide init zsh)"
+    '';
+  };
+
   environment.systemPackages = with pkgs; [
     # Nix
     # format nix packages 
