@@ -4,7 +4,6 @@
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-    loginShell = true;
     shellAliases = {
       update = "nix flake update";
       upgrade = "sudo nixos-rebuild switch --flake .";
