@@ -21,7 +21,9 @@
     enableSSHSupport = true;
   };
 
-  services.syncthing.enable = true;
+  services.syncthing = {
+    enable = true;
+  };
 
   environment.systemPackages = with pkgs; [
     tailscale

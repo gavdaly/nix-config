@@ -64,6 +64,20 @@
           ];
         };
 
+        ares = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./hosts/ares.nix
+          ];
+        };
+
+        hypnos = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./hosts/hypnos.nix
+          ];
+        };
+
         # k3s nodes for Raspberry Pi at the bottom
         rpi-master = makeSystem "aarch64" "master";
         rpi-worker01 = makeSystem "aarch64" "worker01";
