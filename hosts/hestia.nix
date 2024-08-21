@@ -7,12 +7,17 @@
       ./hardware/hestia.nix
       ../modules/common.nix
       ../modules/terminal.nix
-      ../modules/nix-gc.nix
+      ../modules/network.nix
+      ../modules/nix.nix
     ];
 
   # Host-specific settings for Hestia
   networking.hostName = "hestia";
   services.tailscale.enable = true;
+
+  services.postgresql_16_jit = {
+    enable = true;
+  };
 
   services.rustdesk-server = {
     enable = true;

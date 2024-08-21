@@ -1,6 +1,10 @@
-{ ... }:
+{ config, pkgs, ... }:
 
 {
+
+  programs.mtr.enable = true;
+  nixpkgs.config.allowUnfree = true;
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # Optimize storage and automatic scheduled GC running
   # If you want to run GC manually, use commands:
   # `nix-store --optimize` for finding and eliminating redundant copies of identical store paths

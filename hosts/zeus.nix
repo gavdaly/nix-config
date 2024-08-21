@@ -7,7 +7,8 @@
       ./hardware/zeus.nix
       ../modules/bluetooth.nix
       ../modules/common.nix
-      ../modules/nix-gc.nix
+      ../modules/network.nix
+      ../modules/nix.nix
       ../modules/sound.nix
       ../modules/terminal.nix
       ../modules/virtualisation.nix
@@ -32,16 +33,8 @@
     NIXOS_OZONE_WL = "1";
   };
 
-  # Sound setup
-  hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-  };
-
+  services.syncthing.enable = true;
+  services.tailscale.enable = true;
   # Packages specific to Zeus
   users.users.gavin.packages = with pkgs; [
     cosmic-files
@@ -59,7 +52,6 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    vim
     eww
     hyprland
     waybar
@@ -71,13 +63,12 @@
     chromium
     swww
     xdg-desktop-portal-hyprland
-    xwayland
+    # xwayland
     meson
     wayland-protocols
     wayland-utils
     wl-clipboard
     wlroots
-    nixpkgs-fmt
     kitty
     telegram-desktop
   ];
