@@ -102,13 +102,13 @@ Ensure Nix and Flakes support are enabled on your system. Follow the [Nix instal
    ```
 
 2. **Apply the Configuration**:
-   - Use the configuration for your machine:
+   Use the configuration for your machine:
      ```bash
      sudo nixos-rebuild switch --flake .
      ```
 
 3. **Rebuild the System**:
-   - Rebuild your system with the applied configurations:
+   Rebuild your system with the applied configurations:
      ```bash
      sudo nixos-rebuild switch --flake .
      ```
@@ -118,7 +118,7 @@ Ensure Nix and Flakes support are enabled on your system. Follow the [Nix instal
    - Rebuild the system using the commands above to apply your changes.
 
 5. **Format the Configuration**:
-   - Use `nixpkgs-fmt` to automatically format your Nix files:
+   Use `nixpkgs-fmt` to automatically format your Nix files:
      ```bash
      nixpkgs-fmt .
      ```
