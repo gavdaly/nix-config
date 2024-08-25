@@ -35,6 +35,7 @@
           }
         ];
       };
+      username = "gavin";
     in
     {
       nixosConfigurations = {
@@ -48,13 +49,16 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.gavin = import ./home.nix;
-
-              # Optionally, use home-manager.extraSpecialArgs to pass
-              # arguments to home.nix
+              home-manager.users.${username} = import ./home.nix;
             }
           ];
-          specialArgs = { inherit unstable; };
+
+          nixpkgs.overlays = [ ./overlays/sops-nix.nix ];
+
+          specialArgs = {
+            inherit unstable;
+            user = username;
+          };
         };
 
         hestia = nixpkgs.lib.nixosSystem {
