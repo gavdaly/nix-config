@@ -4,15 +4,15 @@ This repository contains Nix configurations for managing development environment
 
 ## Overview
 
-- **Zeus**: A development-focused machine with a Hyperland frontend, configured for a streamlined and efficient development environment.
-- **Hestia**: A simpler configuration, currently set up to run basic services and host small databases, intended for lightweight and focused tasks.
-- **Athena**: A MacBook Pro configured with Home Manager for a portable and efficient development environment tailored to macOS.
-- **Ares**: Reserved for future use, with potential for various purposes as needed.
-- **Asclepius**: A home server set up at your sister’s home, intended for running Home Assistant, managing storage, and other home automation tasks.
-- **Demeter**: A storage server configured to manage and share large storage resources efficiently.
-- **Hades**: A dedicated GitHub build server, optimized for handling continuous integration and deployment tasks.
-- **Hypnos**: Configured as a kiosk system, primarily used for displaying advertising sites or other static web content.
-- **Raspberry Pi k3s Cluster**: A lightweight Kubernetes cluster built with Raspberry Pis, configured for distributed computing and containerized workloads.
+- [**Zeus**](#1-zeus): A development-focused machine with a Hyperland frontend, configured for a streamlined and efficient development environment.
+- [**Hestia**](#2-hestia): A simpler configuration, currently set up to run basic services and host small databases, intended for lightweight and focused tasks.
+- [**Athena**](#3-athena): A MacBook Pro configured with Home Manager for a portable and efficient development environment tailored to macOS.
+- [**Ares**](#4-ares): Reserved for future use, with potential for various purposes as needed.
+- [**Asclepius**](#5-asclepius): A home server set up at your sister’s home, intended for running Home Assistant, managing storage, and other home automation tasks.
+- [**Demeter**](#6-demeter): A storage server configured to manage and share large storage resources efficiently.
+- [**Hades**](#7-hades): A dedicated GitHub build server, optimized for handling continuous integration and deployment tasks.
+- [**Hypnos**](#8-hypnos): Configured as a kiosk system, primarily used for displaying advertising sites or other static web content.
+- [**Raspberry Pi k3s Cluster**](#9-raspberry-pi-k3s-cluster): A lightweight Kubernetes cluster built with Raspberry Pis, configured for distributed computing and containerized workloads.
 
 ## Systems
 
