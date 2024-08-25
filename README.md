@@ -82,10 +82,8 @@ This repository contains Nix configurations for managing development environment
   - **terminal.nix**: Terminal emulator configurations and tweaks.
   - **virtualisation.nix**: Settings for virtualization tools and environments.
   - **wasm.nix**: Configuration for WebAssembly (WASM) development.
-
-## TODO
-
-- **Overlays Directory**: Implement an `overlays` directory to manage custom Nix overlays for package modifications or extensions.
+- **overlays/**: Directory containing reusable Nix overlays, including:
+  - **sops-nix.nix**: A config for secret management for key.
 
 ## Getting Started
 
