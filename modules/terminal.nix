@@ -14,18 +14,15 @@
   };
 
   environment.systemPackages = with pkgs; [
-    # Nix
     # format nix packages 
     nixpkgs-fmt
 
-    # Version Control
     # Version management
     git
 
     # Github command line tool
     gh
 
-    # HTTP Utilities
     # Friendly and fast tool for sending HTTP requests
     xh
 
@@ -50,7 +47,6 @@
     # Youtube downloader
     yt-dlp
 
-    # Shell Utilities
     # Command Line Runner
     just
 
@@ -100,14 +96,12 @@
     # Line-oriented search tool that recursively searches the current directory for a regex pattern. By default, ripgrep will respect gitignore rules and automatically skip hidden files/directories and binary files.
     ripgrep
 
-    # Modify
     # an intuitive find & replace CLI (sed alternative)
     sd
 
     # compressing and decompressing for various formats
     ouch
 
-    # View
     # A program that displays statistics about your code
     tokei
 
@@ -126,7 +120,6 @@
     # A command listing open files
     lsof
 
-    # Network    
     # Ping, but with a graph
     gping
 
@@ -140,8 +133,13 @@
     # tgpt is a cross-platform command-line interface (CLI) tool that allows you to use AI chatbot in your Terminal without requiring API keys.
     tgpt
 
-    # Misc
     # Command Line JSON processor
     jq
+
+    # Modern encryption tool with small explicit keys
+    age
+
+    # Simple and flexible tool for managing secrets
+    sops
   ];
 }
