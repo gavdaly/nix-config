@@ -1,0 +1,7 @@
+# Ignore decryption keys
+age.key
+*.key
+
+# Ignore any local secrets that should not be versioned
+*.env
+*.secrets
