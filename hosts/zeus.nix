@@ -46,6 +46,8 @@
     vscode
   ];
 
+  users.users.gavin.shell = pkgs.zsh;
+
   environment.systemPackages = with pkgs; [
     eww
     hyprland
