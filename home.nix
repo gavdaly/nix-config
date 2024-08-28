@@ -31,11 +31,6 @@
     enable = true;
   };
 
-  # Need to setup profile to enable
-  programs.thunderbird = {
-    #   enable = true;
-  };
-
   services.gpg-agent = {
     enable = true;
     defaultCacheTtl = 1800;
