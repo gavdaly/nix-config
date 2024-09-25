@@ -21,6 +21,8 @@
     enableSSHSupport = true;
   };
 
+  programs.mosh.enable = true;
+
   services.syncthing = {
     enable = true;
   };
