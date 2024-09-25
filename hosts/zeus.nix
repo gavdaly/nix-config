@@ -40,7 +40,6 @@
     onagre
     wayvnc
     mpv
-    zed-editor
     warp-terminal
     obsidian
     vscode
