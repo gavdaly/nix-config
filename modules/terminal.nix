@@ -86,7 +86,7 @@
     fzf
 
     # A tui file manager with vim like key mapping
-    felix-fm
+#    felix-fm
 
     # A  program to find entries in your filesystem. It is a simple, fast and user-friendly alternative to 'find'
     fd

@@ -2,16 +2,15 @@
   description = "First Base Config with Kubernetes k3s Cluster Support";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-24.05";
-    unstable.url = "nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager/release-24.05";
+    nixpkgs.url = "nixpkgs/nixos-unstable";
+    home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # Add the nixpkgs-fmt input
     nixpkgs-fmt.url = "github:nix-community/nixpkgs-fmt";
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, unstable, nixpkgs-fmt, ... }:
+  outputs = inputs@{ nixpkgs, home-manager, nixpkgs-fmt, ... }:
     let
       # Define a mapping of architectures to NixOS system identifiers
       architectures = {
@@ -54,7 +53,6 @@
               # arguments to home.nix
             }
           ];
-          specialArgs = { inherit unstable; };
         };
 
         hestia = nixpkgs.lib.nixosSystem {
