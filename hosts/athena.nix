@@ -9,22 +9,35 @@
       devenv
       zoxide
       direnv
+      nix-direnv
+      git
+      vim
     ];
 
-    # The following programs.* configurations won't work without Home Manager
-    # programs.devenv.enable = true;
-    # programs.zoxide.enable = true;
-    # programs.direnv = {
-    #   enable = true;
-    #   nix-direnv.enable = true;
-    #   extraInit = ''
-    #     use nix
-    #   '';
-    # };
-
-    # If you're using zsh, you might want this instead
+    # Enable zsh
+    programs.zsh.enable = true;
+    
+    # Shell initialization for direnv and zoxide
     environment.interactiveShellInit = ''
       eval "$(direnv hook zsh)"
       eval "$(zoxide init zsh)"
     '';
+    
+    # Configure nix-direnv
+    environment.pathsToLink = [
+      "/share/nix-direnv"
+    ];
+    
+    # Set up direnv configuration
+    environment.etc."direnvrc".text = ''
+      source ${pkgs.nix-direnv}/share/nix-direnv/direnvrc
+      use_nix() {
+        eval "$(${pkgs.nix-direnv}/bin/nix-direnv use "$@")"
+      }
+    '';
+    
+    # Ensure nix-darwin packages are in PATH
+    environment.variables = {
+      PATH = [ "/run/current-system/sw/bin" "$PATH" ];
+    };
 }
