@@ -20,6 +20,15 @@
     signal.relayHosts = [ "100.96.182.34" ];
   };
 
+  services.couchdb = {
+    enable = true;
+    package = pkgs.couchdb;
+    dataDir = "/var/lib/couchdb";
+    bindAddress = "0.0.0.0";
+    adminUsername = "admin";
+    adminPassword = "password";
+  };
+
   # Packages specific to Hestia
   environment.systemPackages = with pkgs; [
     postgresql_16_jit
