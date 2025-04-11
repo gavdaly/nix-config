@@ -17,7 +17,7 @@
   services.rustdesk-server = {
     enable = true;
     openFirewall = true;
-    relayIP = "100.96.182.34";
+    signal.relayHosts = "100.96.182.34";
   };
 
   # Packages specific to Hestia
