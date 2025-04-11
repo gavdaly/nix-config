@@ -23,7 +23,6 @@
   services.couchdb = {
     enable = true;
     package = pkgs.couchdb;
-    dataDir = "/var/lib/couchdb";
     bindAddress = "0.0.0.0";
     adminUser = "admin";
     adminPass = "password";
