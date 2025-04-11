@@ -4,13 +4,12 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # Add the nixpkgs-fmt input
     nixpkgs-fmt.url = "github:nix-community/nixpkgs-fmt";
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, nixpkgs-fmt, ... }:
+  outputs = inputs@{ nixpkgs, nixpkgs-fmt, ... }:
     let
       # Define a mapping of architectures to NixOS system identifiers
       architectures = {
@@ -43,15 +42,6 @@
 
           modules = [
             ./hosts/zeus.nix
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.gavin = import ./home.nix;
-
-              # Optionally, use home-manager.extraSpecialArgs to pass
-              # arguments to home.nix
-            }
           ];
         };
 
