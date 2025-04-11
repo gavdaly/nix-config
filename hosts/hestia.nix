@@ -25,7 +25,7 @@
     package = pkgs.couchdb;
     dataDir = "/var/lib/couchdb";
     bindAddress = "0.0.0.0";
-    adminUsername = "admin";
+    adminUser = "admin";
     adminPass = "password";
   };
 
