@@ -26,7 +26,7 @@
     dataDir = "/var/lib/couchdb";
     bindAddress = "0.0.0.0";
     adminUsername = "admin";
-    adminPassword = "password";
+    adminPass = "password";
   };
 
   # Packages specific to Hestia
