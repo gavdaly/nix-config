@@ -22,9 +22,8 @@
 
   services.couchdb = {
     enable = true;
-    package = pkgs.couchdb;
-    bindAddress = "0.0.0.0";
     package = pkgs.couchdb3;
+    bindAddress = "0.0.0.0";
     adminUser = "admin";
     adminPass = "password";
   };
