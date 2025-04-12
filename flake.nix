@@ -12,25 +12,23 @@
     let
       # System types to support
       supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
-      
-      # Helper to generate system configs with overlays
-      genSystemConfig = system: nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = { inherit inputs; };
-        modules = [
-          sops-nix.nixosModules.sops
-          devenv.nixosModules.devenv
-          ../modules/common.nix
-        ];
-      };
 
+
+genSystemConfig = system: extraModules: nixpkgs.lib.nixosSystem {
+  inherit system;
+  specialArgs = { inherit inputs; };
+  modules = [
+    sops-nix.nixosModules.sops
+    ./modules/common.nix
+  ] ++ extraModules;
+};
+      
       # Function to generate k3s node configuration
       makeK3sNode = arch: role: nixpkgs.lib.nixosSystem {
         system = "${arch}-linux";
         specialArgs = { inherit inputs; };
         modules = [
           sops-nix.nixosModules.sops
-          devenv.nixosModules.devenv
           ./rpi-${role}.nix
           {
             networking.hostName = "k3s-${arch}-${role}";
@@ -38,29 +36,24 @@
           }
         ];
       };
-      };
     in
     {
       nixosConfigurations = {
         # Development and build server
-        zeus = genSystemConfig "x86_64-linux" {
-          imports = [ ./hosts/zeus.nix ];
-        };
+
+zeus = genSystemConfig "x86_64-linux" [
+  ./hosts/zeus.nix
+];
 
         # Database and services server
-        hestia = genSystemConfig "x86_64-linux" {
-          imports = [ ./hosts/hestia.nix ];
-        };
+        hestia = genSystemConfig "x86_64-linux" [ ./hosts/hestia.nix ];
 
         # Reserved for future use
-        ares = genSystemConfig "x86_64-linux" {
-          imports = [ ./hosts/ares.nix ];
-        };
+        ares = genSystemConfig "x86_64-linux" [ ./hosts/ares.nix ];
+      
 
         # Kiosk display system
-        hypnos = genSystemConfig "x86_64-linux" {
-          imports = [ ./hosts/hypnos.nix ];
-        };
+        hypnos = genSystemConfig "x86_64-linux" [ ./hosts/hypnos.nix ];
 
         # k3s cluster nodes
         rpi-master = makeK3sNode "aarch64" "master";

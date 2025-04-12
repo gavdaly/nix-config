@@ -2,8 +2,6 @@
 { config, pkgs, inputs, ... }:
 
 {
-  # Enable devenv service
-  services.devenv.enable = true;
   
   # Configure direnv with nix integration
   programs.direnv = {
@@ -42,8 +40,6 @@
     gnumake
     
     # Security tools
-    ufw
-    fail2ban
     
     # Diagnostics
     mtr
@@ -100,21 +96,6 @@
     '';
   };
 
-  # Automatic system maintenance
-  nix = {
-    # Automatic garbage collection
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 30d";
-    };
-    
-    # Optimize store
-    settings.auto-optimise-store = true;
-    optimise.automatic = true;
-  };
-
-  # User configuration
   users.users.gavin = {
     isNormalUser = true;
     description = "gavin";
