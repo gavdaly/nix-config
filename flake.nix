@@ -1,87 +1,81 @@
 {
-  description = "First Base Config with Kubernetes k3s Cluster Support";
+  description = "NixOS Server Infrastructure Configuration";
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager";
-
-    # Add the nixpkgs-fmt input
     nixpkgs-fmt.url = "github:nix-community/nixpkgs-fmt";
+    sops-nix.url = "github:Mic92/sops-nix";
   };
 
-  outputs = inputs@{ nixpkgs, nixpkgs-fmt, ... }:
+  outputs = inputs@{ nixpkgs, nixpkgs-fmt, sops-nix, ... }:
     let
-      # Define a mapping of architectures to NixOS system identifiers
-      architectures = {
-        aarch64 = "aarch64-linux";
-        x86_64 = "x86_64-linux";
-        armv7l = "armv7l-linux"; # Example for 32-bit ARM
-        # Add more architectures as needed
+      # System types to support
+      supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
+      
+      # Helper to generate system configs with overlays
+      genSystemConfig = system: nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = { inherit inputs; };
+        modules = [
+          sops-nix.nixosModules.sops
+          ../modules/common.nix
+        ];
       };
 
-      # Function to generate system configuration for a given architecture and role
-      makeSystem = arch: role: nixpkgs.lib.nixosSystem {
-        system = architectures.${arch};
+      # Function to generate k3s node configuration
+      makeK3sNode = arch: role: nixpkgs.lib.nixosSystem {
+        system = "${arch}-linux";
+        specialArgs = { inherit inputs; };
         modules = [
+          sops-nix.nixosModules.sops
+          ./rpi-${role}.nix
           {
-            imports = [ ./rpi-${role}.nix ];
-
-            # Set the hostname using the architecture and role
             networking.hostName = "k3s-${arch}-${role}";
-
-            # Other system-specific or role-specific configurations
+            networking.domain = "cluster.local";
           }
         ];
       };
     in
     {
       nixosConfigurations = {
-        # Existing systems
-        zeus = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-
-          modules = [
-            ./hosts/zeus.nix
-          ];
+        # Development and build server
+        zeus = genSystemConfig "x86_64-linux" {
+          imports = [ ./hosts/zeus.nix ];
         };
 
-        hestia = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux"; # Add the system architecture for Hestia
-          modules = [
-            ./hosts/hestia.nix
-          ];
+        # Database and services server
+        hestia = genSystemConfig "x86_64-linux" {
+          imports = [ ./hosts/hestia.nix ];
         };
 
-        ares = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            ./hosts/ares.nix
-          ];
+        # Reserved for future use
+        ares = genSystemConfig "x86_64-linux" {
+          imports = [ ./hosts/ares.nix ];
         };
 
-        hypnos = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            ./hosts/hypnos.nix
-          ];
+        # Kiosk display system
+        hypnos = genSystemConfig "x86_64-linux" {
+          imports = [ ./hosts/hypnos.nix ];
         };
 
-        # k3s nodes for Raspberry Pi at the bottom
-        rpi-master = makeSystem "aarch64" "master";
-        rpi-worker01 = makeSystem "aarch64" "worker01";
-        rpi-worker02 = makeSystem "aarch64" "worker02";
-        rpi-worker03 = makeSystem "aarch64" "worker03";
-
-        # Add additional architectures and roles as needed
-        # rpi-armv7l-master = makeSystem "armv7l" "master";
-        # rpi-armv7l-worker01 = makeSystem "armv7l" "worker01";
+        # k3s cluster nodes
+        rpi-master = makeK3sNode "aarch64" "master";
+        rpi-worker01 = makeK3sNode "aarch64" "worker01";
+        rpi-worker02 = makeK3sNode "aarch64" "worker02";
+        rpi-worker03 = makeK3sNode "aarch64" "worker03";
       };
 
-      # Add formatter to the devShell
-      devShell = nixpkgs.mkShell {
-        nativeBuildInputs = [
-          nixpkgs-fmt
-        ];
-      };
+      # Development shell with formatting tools
+      devShells = builtins.listToAttrs (map
+        (system: {
+          name = system;
+          value = nixpkgs.legacyPackages.${system}.mkShell {
+            nativeBuildInputs = with nixpkgs.legacyPackages.${system}; [
+              nixpkgs-fmt
+              sops
+            ];
+          };
+        })
+        supportedSystems);
     };
 }
