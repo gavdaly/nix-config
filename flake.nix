@@ -5,9 +5,10 @@
     nixpkgs.url = "nixpkgs/nixos-unstable";
     nixpkgs-fmt.url = "github:nix-community/nixpkgs-fmt";
     sops-nix.url = "github:Mic92/sops-nix";
+    devenv.url = "github:cachix/devenv";
   };
 
-  outputs = inputs@{ nixpkgs, nixpkgs-fmt, sops-nix, ... }:
+  outputs = inputs@{ nixpkgs, nixpkgs-fmt, sops-nix, devenv, ... }:
     let
       # System types to support
       supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
@@ -18,6 +19,7 @@
         specialArgs = { inherit inputs; };
         modules = [
           sops-nix.nixosModules.sops
+          devenv.nixosModules.devenv
           ../modules/common.nix
         ];
       };
@@ -28,12 +30,14 @@
         specialArgs = { inherit inputs; };
         modules = [
           sops-nix.nixosModules.sops
+          devenv.nixosModules.devenv
           ./rpi-${role}.nix
           {
             networking.hostName = "k3s-${arch}-${role}";
             networking.domain = "cluster.local";
           }
         ];
+      };
       };
     in
     {

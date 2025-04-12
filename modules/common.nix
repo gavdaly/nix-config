@@ -1,7 +1,17 @@
 # modules/common.nix
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
+  # Enable devenv service
+  services.devenv.enable = true;
+  
+  # Configure direnv with nix integration
+  programs.direnv = {
+    enable = true;
+    nix-direnv = {
+      enable = true;
+    };
+  };
   # Basic system configuration
   time.timeZone = "America/Toronto";
   i18n.defaultLocale = "en_CA.UTF-8";
@@ -22,6 +32,14 @@
     curl
     ripgrep
     fd
+    
+    # Development tools
+    direnv
+    devenv
+    nixpkgs-fmt
+    shellcheck
+    gcc
+    gnumake
     
     # Security tools
     ufw
