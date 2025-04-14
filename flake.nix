@@ -22,7 +22,7 @@ genSystemConfig = system: extraModules: nixpkgs.lib.nixosSystem {
     ./modules/common.nix
   ] ++ extraModules;
 };
-      
+
       # Function to generate k3s node configuration
       makeK3sNode = arch: role: nixpkgs.lib.nixosSystem {
         system = "${arch}-linux";
@@ -50,7 +50,7 @@ zeus = genSystemConfig "x86_64-linux" [
 
         # Reserved for future use
         ares = genSystemConfig "x86_64-linux" [ ./hosts/ares.nix ];
-      
+
 
         # Kiosk display system
         hypnos = genSystemConfig "x86_64-linux" [ ./hosts/hypnos.nix ];
