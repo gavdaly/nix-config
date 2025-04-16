@@ -1,0 +1,39 @@
+name: "Test & Format"
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: cachix/install-nix-action@v25
+      with:
+        github_access_token: ${{ secrets.GITHUB_TOKEN }}
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+
+    - name: Format check
+      run: |
+        nix-shell -p nixpkgs-fmt --run "nixpkgs-fmt --check ."
+
+    - name: Check flake
+      run: |
+        nix flake check
+        
+    - name: Check flake inputs
+      run: |
+        nix flake lock --check-locked
+        
+    - name: Build system configurations
+      run: |
+        nix build .#nixosConfigurations.*.system
+        nix build .#homeConfigurations.*.activationPackage
+        
+    - name: Check evaluation
+      run: |
+        nix eval .#nixosConfigurations
+        nix eval .#homeConfigurations
