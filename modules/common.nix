@@ -2,7 +2,6 @@
 { config, pkgs, inputs, ... }:
 
 {
-  
   # Configure direnv with nix integration
   programs.direnv = {
     enable = true;
@@ -10,10 +9,11 @@
       enable = true;
     };
   };
+
   # Basic system configuration
   time.timeZone = "America/Toronto";
   i18n.defaultLocale = "en_CA.UTF-8";
-  
+
   # System packages
   environment.systemPackages = with pkgs; [
     # System monitoring
@@ -21,7 +21,7 @@
     iotop
     nload
     ncdu
-    
+
     # System utilities
     tmux
     git
@@ -30,7 +30,7 @@
     curl
     ripgrep
     fd
-    
+
     # Development tools
     direnv
     devenv
@@ -38,14 +38,14 @@
     shellcheck
     gcc
     gnumake
-    
+
     # Security tools
-    
+
     # Diagnostics
     mtr
     tcpdump
     lsof
-    
+
     # Process management
     killall
     tree
@@ -120,7 +120,4 @@
       '';
     };
   };
-
-  # Set system state version
-  system.stateVersion = "24.05";
 }

@@ -1,5 +1,4 @@
-{ config, pkgs, ... }:
-{
+{ config, pkgs, ... }: {
   # Common networking settings
   networking.networkmanager.enable = true;
 

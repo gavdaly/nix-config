@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{ pkgs, ... }: {
   # Enable Containerd
   # virtualisation.containerd.enable = true;
 
