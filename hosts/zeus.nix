@@ -17,6 +17,7 @@
 
   # Host-specific settings for Zeus
   networking.hostName = "zeus";
+  system.stateVersion = "25.04";
 
   # Wayland/Hyprland configuration
   services.displayManager.sddm.enable = true;
