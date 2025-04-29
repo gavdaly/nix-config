@@ -23,7 +23,7 @@ jobs:
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        nix-shell -p nixpkgs-fmt --run "nixpkgs-fmt ."
+        nix run nixpkgs#nixpkgs-fmt -- .
         if [[ -n $(git status --porcelain) ]]; then
           git add .
           git commit -m "chore: format nix files"
