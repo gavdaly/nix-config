@@ -1,10 +1,11 @@
-{config, lib, pkgs, ...}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.services.neon;
-in {
+in
+{
   options.services.neon = {
     enable = mkEnableOption "Neon database service";
 
@@ -40,7 +41,7 @@ in {
 
     settings = mkOption {
       type = types.attrs;
-      default = {};
+      default = { };
       description = "Neon configuration settings.";
     };
   };
@@ -54,7 +55,7 @@ in {
       description = "Neon database user";
     };
 
-    users.groups.${cfg.group} = {};
+    users.groups.${cfg.group} = { };
 
     systemd.services.neon-pageserver = {
       description = "Neon Page Server";

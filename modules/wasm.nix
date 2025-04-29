@@ -3,8 +3,8 @@
 {
   environment.systemPackages = with pkgs; [
     wasmedge
-#    wasmer
-#    lunatic
+    #    wasmer
+    #    lunatic
     wasmi
     # wasm3
   ];

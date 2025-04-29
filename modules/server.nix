@@ -7,22 +7,22 @@
     # Backup tools
     restic
     rclone
-    
+
     # Network tools
     nmap
     inetutils
     iptables
-    
+
     # Storage management
     parted
     gptfdisk
     smartmontools
-    
+
     # System analysis
     sysstat
     atop
     glances
-    
+
     # Log analysis
     goaccess
     logrotate
