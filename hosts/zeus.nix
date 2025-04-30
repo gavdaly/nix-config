@@ -16,7 +16,7 @@
 
   # Host-specific settings for Zeus
   networking.hostName = "zeus";
-  system.stateVersion = "25.04";
+  system.stateVersion = "25.05";
 
   users.users.gavin.shell = pkgs.zsh;
 }

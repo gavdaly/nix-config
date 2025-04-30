@@ -45,29 +45,14 @@
         hestia = genSystemConfig "x86_64-linux" [ ./hosts/hestia.nix ];
 
         # Reserved for future use
-        ares = genSystemConfig "x86_64-linux" [ ./hosts/ares.nix ];
+        #
+        # Not in use yet
+        # ares = genSystemConfig "x86_64-linux" [ ./hosts/ares.nix ];
 
         # Kiosk display system
-        hypnos = genSystemConfig "x86_64-linux" [ ./hosts/hypnos.nix ];
-
-        # k3s cluster nodes
-        rpi-master = makeK3sNode "aarch64" "master";
-        rpi-worker01 = makeK3sNode "aarch64" "worker01";
-        rpi-worker02 = makeK3sNode "aarch64" "worker02";
-        rpi-worker03 = makeK3sNode "aarch64" "worker03";
+        #
+        # Not in use yet
+        # hypnos = genSystemConfig "x86_64-linux" [ ./hosts/hypnos.nix ];
       };
-
-      # Development shell with formatting tools
-      devShells = builtins.listToAttrs (map
-        (system: {
-          name = system;
-          value = nixpkgs.legacyPackages.${system}.mkShell {
-            nativeBuildInputs = with nixpkgs.legacyPackages.${system}; [
-              nixpkgs-fmt
-              sops
-            ];
-          };
-        })
-        supportedSystems);
     };
 }
