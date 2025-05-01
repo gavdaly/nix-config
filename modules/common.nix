@@ -41,6 +41,7 @@
 
     # Security tools
     openssl
+    pkg-config
 
     # Diagnostics
     mtr
