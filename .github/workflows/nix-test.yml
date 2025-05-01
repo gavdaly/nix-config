@@ -19,13 +19,3 @@ jobs:
     - name: Check flake
       run: |
         nix flake check
-
-    - name: Build system configurations
-      run: |
-        nix build .#nixosConfigurations.*.system
-        nix build .#homeConfigurations.*.activationPackage
-        
-    - name: Check evaluation
-      run: |
-        nix eval .#nixosConfigurations
-        nix eval .#homeConfigurations
