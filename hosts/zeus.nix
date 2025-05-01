@@ -9,6 +9,7 @@
       ../modules/common.nix
       ../modules/network.nix
       ../modules/nix.nix
+      ../modules/rust.nix
       ../modules/terminal.nix
       ../modules/virtualisation.nix
       ../modules/wasm.nix
