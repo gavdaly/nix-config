@@ -40,6 +40,7 @@
     gnumake
 
     # Security tools
+    openssl
 
     # Diagnostics
     mtr
