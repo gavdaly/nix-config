@@ -13,7 +13,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    # format nix packages 
+    # format nix packages
     nixpkgs-fmt
 
     # Version management
@@ -45,6 +45,7 @@
 
     # Youtube downloader
     yt-dlp
+    ffmpeg
 
     # Command Line Runner
     just
