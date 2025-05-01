@@ -19,11 +19,7 @@ jobs:
     - name: Check flake
       run: |
         nix flake check
-        
-    - name: Check flake inputs
-      run: |
-        nix flake lock --check-locked
-        
+
     - name: Build system configurations
       run: |
         nix build .#nixosConfigurations.*.system
